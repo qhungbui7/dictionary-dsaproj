@@ -8,6 +8,8 @@
 #define RESULT_SET "EnglishDictionaryfromOxford.txt"
 #define INP_DESTINATION "input.txt"
 #define OUT_DESTINATION "output.txt"
+#define UTF8_ENCRYPTED_MASK "3NcRyPt3d"
+#define OUTLIER_HASHING_STRING "CoMputErsCiEnceiSmYlIf3333"
 using namespace std;
 struct word {
 	string encrypted; 

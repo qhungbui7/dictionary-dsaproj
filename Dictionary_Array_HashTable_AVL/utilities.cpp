@@ -3,22 +3,12 @@ string encrypt(string root) {
 	string enc = "";
 	if (int(root[0]) == -61 || int(root[0]) == -59) {
 		enc += to_string(int('O') + 1 + 666);
-		root += "3NcRyPt3d";
+		root += UTF8_ENCRYPTED_MASK;
 	}
 	else if (int(root[0]) == -62) {
 		enc += to_string(int('L') + 1 + 666);
-		root += "3NcRyPt3d";
+		root += UTF8_ENCRYPTED_MASK;
 	}
-	/*else if (int(root[0]) == 'À' || int(root[0]) == 'Á') {
-		cout << "A";
-		enc += to_string(int('A') + 1 + 666);
-		root += "3NcRyPt3d";
-	}
-	else if (int(root[0]) == 'È' || int(root[0]) == 'É') {
-		cout << "E";
-		enc += to_string(int('E') + 1 + 666);
-		root += "3NcRyPt3d";
-	}*/
 	for (int i = 0; i < root.length(); i++) {
 		if (root[i] == '-' || root[i] == '\'') {
 			enc += "000"; 

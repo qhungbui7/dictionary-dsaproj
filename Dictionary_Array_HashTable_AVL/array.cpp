@@ -27,7 +27,7 @@ word filter(string raw) {
 			if (t.in[0] == '-' || t.in[0] =='\'') {
 				t.cmp = t.in.substr(1, t.in.size() - 1 + 1);
 				t.cmp[0] = toupper(t.cmp[0]);
-				string tc = t.cmp + "CSiSmAhlIfE"; 
+				string tc = t.cmp + OUTLIER_HASHING_STRING; 
 				t.encrypted = encrypt(tc);
 			}
 			else {
@@ -81,7 +81,7 @@ void readFileArray(word*& dictionary, int &size, word dicT[]) {
 		if (dictionary[i - 1].in == dictionary[i].in && dictionary[i - 1].mean == dictionary[i].mean)
 			continue;
 		dicT[++sizeT] = dictionary[i];
-		cout << dictionary[i].encrypted <<endl; 
+		// cout << dictionary[i].encrypted <<endl; 
 	}
 	fi.close();
 	delete[] dictionary;
@@ -95,41 +95,41 @@ void writeFileArray(word* dictionary, int size) {
 	for (int i = 1; i <= size; i++) {
 		fo << dictionary[i].in << " : " << dictionary[i].mean << endl;
 	}
-	cout << "Save to" << RESULT_SET << "sucessfully !\n";
+	cout << "Save to " << RESULT_SET << " sucessfully !\n";
 	fo.close();
 	system(RESULT_SET);
 }
 void findingWordArray(word* dictionary, int size) {
 	string key;
 	wcin.ignore();
-	while (true) {
-		fstream fi(INP_DESTINATION, ios::in);
-		fstream fo(OUT_DESTINATION, ios::out);
-		cout << "Enter the word that you want to find in the input.txt, output in the output.txt\n";
-		system(INP_DESTINATION);
-		getline(fi, key);
-		int pos = binarySearch(dictionary, 1, size, formalize(key));
-		if (pos == -1) {
-			fo << "Not Found\n";
-			cout << "Not Found\n";
-		}
-		else {
-			fo << dictionary[pos].in << " : " << dictionary[pos].mean << endl;
-			cout << "Found\n";
-			fo.close();
-			system(OUT_DESTINATION);
-			break;
-		}
-		fi.close();
+
+	fstream fi(INP_DESTINATION, ios::in);
+	fstream fo(OUT_DESTINATION, ios::out);
+	cout << "Enter the word that you want to find in the " << INP_DESTINATION << ", output in the " << OUT_DESTINATION << "\n";
+	system(INP_DESTINATION);
+	getline(fi, key);
+	int pos = binarySearch(dictionary, 1, size, formalize(key));
+	if (pos == -1) {
+		fo << "Not Found\n";
+		cout << "Not Found\n";
+	}
+	else {
+		fo << dictionary[pos].in << " : " << dictionary[pos].mean << endl;
+		cout << "Found\n";
 		fo.close();
 		system(OUT_DESTINATION);
+
 	}
+	fi.close();
+	fo.close();
+	system(OUT_DESTINATION);
+	
 }
 void insertingWordArray(word *dictionary, int size) {
 	string temp;
 	wcin.ignore();
 	fstream fi(INP_DESTINATION, ios::in);
-	cout << "Enter the word that you want to insert in the input.txt\nFormat :Keyword 2 spaces Meaning\n";
+	cout << "Enter the word that you want to insert in the " << INP_DESTINATION << "\nFormat :Keyword 2 spaces Meaning\n";
 	system(INP_DESTINATION);
 	getline(fi, temp);
 	temp = formalize(temp);
@@ -145,9 +145,9 @@ void insertingWordArray(word *dictionary, int size) {
 void editingWordArray(word *dictionary, int size) {
 	string temp;
 	wcin.ignore();
-	fstream fi("input.txt", ios::in);
-	cout << "Enter the keyword and the new meaning that you want to edit in the input.txt\n";
-	system("input.txt");
+	fstream fi(INP_DESTINATION, ios::in);
+	cout << "Enter the keyword and the new meaning that you want to edit in the " << INP_DESTINATION << "\n";
+	system(INP_DESTINATION);
 	getline(fi, temp);
 	word fil = filter(temp);
 	int pos = binarySearch(dictionary, 1, size , formalize(fil.in));
@@ -163,9 +163,9 @@ void editingWordArray(word *dictionary, int size) {
 void deletingWordArray(word* dictionary, int size) {
 	string key;
 	wcin.ignore();
-	fstream fi("input.txt", ios::in);
-	cout << "Enter the word that you want to delete in the input.txt\n";
-	system("input.txt");
+	fstream fi(INP_DESTINATION, ios::in);
+	cout << "Enter the word that you want to delete in the " <<INP_DESTINATION <<"\n";
+	system(INP_DESTINATION);
 	getline(fi, key);
 	int pos = binarySearch(dictionary, 0, size - 1, formalize(key));
 	if (pos == -1) {
