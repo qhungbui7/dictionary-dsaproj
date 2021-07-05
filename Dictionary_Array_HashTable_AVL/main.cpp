@@ -1,5 +1,6 @@
 #include"utilities.h"
 #include"array.h"
+#include"hashTable.h"
 int main() 
 {
 	string inc_1[3] = { "Array", "Hash Table", "AVL Tree" };
@@ -35,6 +36,24 @@ int main()
 		}
 		delete[] dictionary; 
 	}
-	
+	else if (core == 1) {
+		int sizeHashTable = locatePrime(NUM_LINE / 7); 
+		int modu = locatePrime(NUM_LINE/7); 
+		headNode* hashTable = new headNode[sizeHashTable];
+		while (true) {
+			cout << "Choose function (0 - 6) :\n";
+			for (int inc = 0; inc < 6; inc++) {
+				cout << inc << ". " << inc_2[inc] << endl;
+			}
+			cout << "6. Exit\n>>";
+			cin >> cmd;
+			if (cmd == 6)
+				break;
+			else if (cmd == 0)
+				readFileHashTable(hashTable, modu); 
+
+		}
+		delete[] hashTable;
+	}
 	return 0;
 }

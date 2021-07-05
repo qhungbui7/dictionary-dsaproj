@@ -140,15 +140,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="array.cpp" />
+    <ClCompile Include="hashTable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />
+    <ClInclude Include="hashTable.h" />
     <ClInclude Include="utilities.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="crypt.txt" />
     <Text Include="EnglishDictionaryfromOxford.txt" />
     <Text Include="input.txt" />
     <Text Include="output.txt" />

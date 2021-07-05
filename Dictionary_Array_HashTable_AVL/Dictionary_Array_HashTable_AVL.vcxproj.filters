@@ -24,6 +24,9 @@
     <ClCompile Include="array.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hashTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utilities.h">
@@ -32,13 +35,15 @@
     <ClInclude Include="array.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="hashTable.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="output.txt">
       <Filter>Source Files</Filter>
     </Text>
     <Text Include="Oxford-English-Dictionary.txt" />
-    <Text Include="crypt.txt" />
     <Text Include="input.txt">
       <Filter>Source Files</Filter>
     </Text>
