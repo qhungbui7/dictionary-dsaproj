@@ -6,7 +6,7 @@ int main()
 	string inc_1[3] = { "Array", "Hash Table", "AVL Tree" };
 	string inc_2[6] = { "Load", "Save", "Look up","Insert","Edit","Remove" }; 
 	int core, cmd; 
-	cout << "Choose dictionary's core (0-2) :\n0. Array\n1. Hash Table\n2. AVL Tree\n>>"; 
+	cout << "Choose dictionary's core (0-1) :\n0. Array\n1. Hash Table\n>>"; 
 	wcin >> core; 
 	if (core == 0) {
 		word* dictionary = new word[NUM_LINE];
@@ -38,7 +38,6 @@ int main()
 	}
 	else if (core == 1) {
 		int sizeHashTable = locatePrime(NUM_LINE / 7); 
-		int modu = locatePrime(NUM_LINE/7); 
 		headNode* hashTable = new headNode[sizeHashTable];
 		while (true) {
 			cout << "Choose function (0 - 6) :\n";
@@ -50,10 +49,22 @@ int main()
 			if (cmd == 6)
 				break;
 			else if (cmd == 0)
-				readFileHashTable(hashTable, modu); 
-
+				readFileHashTable(hashTable, sizeHashTable);
+			else if (cmd == 1)
+				writeFileHashTable(hashTable, sizeHashTable);
+			else if (cmd == 2)
+				findingWordHashTable(hashTable, sizeHashTable);
+			else if (cmd == 3)
+				insertingWordHashTable(hashTable, sizeHashTable);
+			else if (cmd == 4)
+				editingWordHashTable(hashTable, sizeHashTable);
+			else if (cmd == 5)
+				deletingWordHashTable(hashTable, sizeHashTable);
 		}
-		delete[] hashTable;
+		for (int i = 0; i < sizeHashTable; i++) {
+			freedomForLL(hashTable[i].head);
+		}
+		delete[] hashTable; 
 	}
 	return 0;
 }
