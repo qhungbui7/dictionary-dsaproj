@@ -55,12 +55,14 @@ int binarySearch(word dictionary[], int left, int right, string key) {
 		return binarySearch(dictionary, mid + 1, right, key);
 }
 void readFileArray(word*& dictionary, int &size, word dicT[]) {
+	duration<double, milli> ms_duration; 
+	auto st = steady_clock::now();
 	fstream fi(SOURCE_DATASET, ios::in);
 	string temp;
 	while (getline(fi, temp)) {
 		if (!(temp.length() <= 2)) {
 			word fil = filter(temp);
-			if (dictionary[size].in == "Usage" && !(fil.in <= "Usage" && dictionary[size - 1].in >= "Usage")) {
+			if (dictionary[size].in == "Usage" && !(fil.in < "Usage" && dictionary[size - 1].in > "Usage")) {
 				dictionary[size - 1].mean += "\n  " + dictionary[size].in + " : " + dictionary[size].mean;
 				dictionary[size] = fil;
 				continue;
@@ -87,16 +89,22 @@ void readFileArray(word*& dictionary, int &size, word dicT[]) {
 	delete[] dictionary;
 	dictionary = dicT;
 	size = sizeT;
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl ;
 }
 void writeFileArray(word* dictionary, int size) {
 	fstream fo(RESULT_SET, ios::out);
-	// quickSort(dictionary, 0, size);
-
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	for (int i = 1; i <= size; i++) {
 		fo << dictionary[i].in << " : " << dictionary[i].mean << endl;
 	}
 	cout << "Save to " << RESULT_SET << " sucessfully !\n";
 	fo.close();
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	system(RESULT_SET);
 }
 void findingWordArray(word* dictionary, int size) {
@@ -108,6 +116,8 @@ void findingWordArray(word* dictionary, int size) {
 	cout << "Enter the word that you want to find in the " << INP_DESTINATION << ", output in the " << OUT_DESTINATION << "\n";
 	system(INP_DESTINATION);
 	getline(fi, key);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	int pos = binarySearch(dictionary, 1, size, formalize(key));
 	if (pos == -1) {
 		fo << "Not Found\n";
@@ -116,10 +126,10 @@ void findingWordArray(word* dictionary, int size) {
 	else {
 		fo << dictionary[pos].in << " : " << dictionary[pos].mean << endl;
 		cout << "Found\n";
-		fo.close();
-		system(OUT_DESTINATION);
-
 	}
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fi.close();
 	fo.close();
 	system(OUT_DESTINATION);
@@ -129,9 +139,11 @@ void insertingWordArray(word *dictionary, int size) {
 	string temp;
 	wcin.ignore();
 	fstream fi(INP_DESTINATION, ios::in);
-	cout << "Enter the word that you want to insert in the " << INP_DESTINATION << "\nFormat :Keyword 2 spaces Meaning\n";
+	cout << "Enter the word that you want to insert in the " << INP_DESTINATION << "\nFormat: Keyword  Meaning\n";
 	system(INP_DESTINATION);
 	getline(fi, temp);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	temp = formalize(temp);
 	word fil = filter(temp);
 	int j = ++size - 1;
@@ -140,6 +152,9 @@ void insertingWordArray(word *dictionary, int size) {
 		j--;
 	}
 	dictionary[j + 1] = fil;
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fi.close();
 }
 void editingWordArray(word *dictionary, int size) {
@@ -149,6 +164,8 @@ void editingWordArray(word *dictionary, int size) {
 	cout << "Enter the keyword and the new meaning that you want to edit in the " << INP_DESTINATION << "\n";
 	system(INP_DESTINATION);
 	getline(fi, temp);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	word fil = filter(temp);
 	int pos = binarySearch(dictionary, 1, size , formalize(fil.in));
 	if (pos == -1) {
@@ -158,6 +175,9 @@ void editingWordArray(word *dictionary, int size) {
 		cout << "Edited!\n";
 		dictionary[pos] = fil;
 	}
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fi.close();
 }
 void deletingWordArray(word* dictionary, int size) {
@@ -167,6 +187,8 @@ void deletingWordArray(word* dictionary, int size) {
 	cout << "Enter the word that you want to delete in the " <<INP_DESTINATION <<"\n";
 	system(INP_DESTINATION);
 	getline(fi, key);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	int pos = binarySearch(dictionary, 0, size - 1, formalize(key));
 	if (pos == -1) {
 		cout << "Not Found\n";
@@ -177,5 +199,8 @@ void deletingWordArray(word* dictionary, int size) {
 		for (int i = pos; i <= size; i++)
 			dictionary[i] = dictionary[i + 1];
 	}
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fi.close();
 }

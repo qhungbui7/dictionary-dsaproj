@@ -3,6 +3,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<chrono>
 #define NUM_LINE 72320
 #define SOURCE_DATASET "Oxford-English-Dictionary.txt"
 #define RESULT_SET "EnglishDictionaryfromOxford.txt"
@@ -10,7 +11,9 @@
 #define OUT_DESTINATION "output.txt"
 #define UTF8_ENCRYPTED_MASK "3NcRyPt3d"
 #define OUTLIER_HASHING_STRING "CoMputErsCiEnceiSmYlIf3333"
-using namespace std;
+using namespace std; 
+using chrono::steady_clock; 
+using chrono::duration; 
 struct hashElement {
 	wstring keyword;
 	wstring meaning;

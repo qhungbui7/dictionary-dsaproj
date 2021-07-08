@@ -45,6 +45,8 @@ void traverse(Node* head, wfstream &fo) {
 }
 void readFileHashTable(headNode* hashTable, int sizeHashTable) {
 	wfstream fi(SOURCE_DATASET, ios::in); 
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	wstring t1, t2, t3;
 	hashElement fi1, fi2, fi3;
 	for (int i = 0; i < sizeHashTable; i++)
@@ -61,11 +63,8 @@ void readFileHashTable(headNode* hashTable, int sizeHashTable) {
 		}
  
 	while (getline(fi, t3)) {
-		//wcout << t3 << endl; 
 		if (t3.length() > 2) {
-			//cout << "C1\n"; 
 			fi3 = wfilter(t3);
-			//wcout << fi3.keyword << L"\n" << fi3.meaning << endl; 
 			if (fi2.keyword == L"Usage" && !(fi3.keyword <= L"Usage" && fi1.keyword >= L"Usage")) {
 				fi1.meaning += L"\n Usage : " + fi2.meaning;
 				fi2 = fi3; 
@@ -75,26 +74,32 @@ void readFileHashTable(headNode* hashTable, int sizeHashTable) {
 				fi2.meaning += L"\n " + fi3.meaning; 
 				continue; 
 			}
-			//cout << "C1.5\n"; 
 			pushNode(hashTable[hashingFunction(fi1.keyword, sizeHashTable)].head, fi1); 
-			//cout << "C2\n";
 			fi1 = fi2; 
 			fi2 = fi3; 
 		}
 	}
 	pushNode(hashTable[hashingFunction(fi2.keyword, sizeHashTable)].head, fi2);
 	pushNode(hashTable[hashingFunction(fi3.keyword, sizeHashTable)].head, fi3);
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 }
 void writeFileHashTable(headNode* hashTable, int size) {
 	wfstream fo(RESULT_SET, ios::out);
 	// quickSort(dictionary, 0, size);
-
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	for (int i = 0; i < size; i++) {
 		traverse(hashTable[i].head, fo);
 	}
 	cout << "Save to " << RESULT_SET << " sucessfully !\n";
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fo.close();
 	system(RESULT_SET);
+
 }
 Node* searchWordHashTable(headNode* hashTable, int size, wstring key) {
 	headNode element = hashTable[hashingFunction(key, size)];
@@ -115,6 +120,8 @@ void findingWordHashTable(headNode* hashTable, int size) {
 	cout << "Enter the word that you want to find in the " << INP_DESTINATION << ", output in the " << OUT_DESTINATION << "\n";
 	system(INP_DESTINATION);
 	getline(fi, key);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	Node* p = searchWordHashTable(hashTable, size, wformalize(key));
 	if (!p) {
 		fo << "Not Found\n";
@@ -125,6 +132,9 @@ void findingWordHashTable(headNode* hashTable, int size) {
 		cout << "Found\n";
 
 	}
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fi.close();
 	fo.close();
 	system(OUT_DESTINATION);
@@ -133,13 +143,18 @@ void insertingWordHashTable(headNode* hashTable, int size) {
 	wstring temp;
 	wcin.ignore();
 	wfstream fi(INP_DESTINATION, ios::in);
-	cout << "Enter the word that you want to insert in the " << INP_DESTINATION << "\nFormat :Keyword 2 spaces Meaning\n";
+	cout << "Enter the word that you want to insert in the " << INP_DESTINATION << "\nFormat: Keyword 2 spaces Meaning\n";
 	system(INP_DESTINATION);
 	getline(fi, temp);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	temp = wformalize(temp);
 	hashElement fil = wfilter(temp);
 	Node* p = newNode(fil); 
 	pushNode(hashTable[hashingFunction(fil.keyword, size)].head, fil); 
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fi.close();
 }
 void editingWordHashTable(headNode* hashTable, int size) {
@@ -149,6 +164,8 @@ void editingWordHashTable(headNode* hashTable, int size) {
 	cout << "Enter the keyword and the new meaning that you want to edit in the " << INP_DESTINATION << "\n";
 	system(INP_DESTINATION);
 	getline(fi, temp);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	hashElement fil = wfilter(temp);
 	Node* p = searchWordHashTable(hashTable, size, wformalize(fil.keyword));
 	if (!p) {
@@ -158,6 +175,9 @@ void editingWordHashTable(headNode* hashTable, int size) {
 		p->element = fil;
 		cout << "Edited!\n";
 	}
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fi.close();
 }
 bool deleteNode(Node* head, wstring keyword) {
@@ -193,10 +213,15 @@ void deletingWordHashTable(headNode* hashTable, int size) {
 	cout << "Enter the word that you want to delete in the " << INP_DESTINATION << "\n";
 	system(INP_DESTINATION);
 	getline(fi, temp);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
 	temp = wformalize(temp); 
 	if (deleteNode(hashTable[hashingFunction(temp, size)].head, temp))
 		cout << "Deleted !\n";
 	else
 		cout << "The keyword is not exist! \n"; 
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fi.close();
 }
