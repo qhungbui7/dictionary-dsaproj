@@ -3,7 +3,7 @@
 int hashingFunction(wstring keyword, int modu) {
 	int accumulator = 777; 
 	for (int i = 0; i < keyword.length(); i++)
-		accumulator += int(keyword[i]); 
+		accumulator += int(keyword[i])*10; 
 	return accumulator % modu; 
 }
 
@@ -65,7 +65,11 @@ void readFileHashTable(headNode* hashTable, int sizeHashTable) {
 	while (getline(fi, t3)) {
 		if (t3.length() > 2) {
 			fi3 = wfilter(t3);
-			if (fi2.keyword == L"Usage" && !(fi3.keyword <= L"Usage" && fi1.keyword >= L"Usage")) {
+			if (fi2.keyword == L"Usage") {
+				wcout << fi1.keyword << L" " << fi2.keyword << L" " << fi3.keyword << endl;
+				wcout << (fi3.keyword >= fi2.keyword) << " " << (fi1.keyword <= fi2.keyword) << endl;
+			}
+			if (fi2.keyword == L"Usage" && !((fi3.keyword >= fi2.keyword) && (fi1.keyword <= fi2.keyword))) {
 				fi1.meaning += L"\n Usage : " + fi2.meaning;
 				fi2 = fi3; 
 				continue; 
@@ -74,9 +78,14 @@ void readFileHashTable(headNode* hashTable, int sizeHashTable) {
 				fi2.meaning += L"\n " + fi3.meaning; 
 				continue; 
 			}
-			pushNode(hashTable[hashingFunction(fi1.keyword, sizeHashTable)].head, fi1); 
-			fi1 = fi2; 
-			fi2 = fi3; 
+			else if (fi2.keyword == fi3.keyword && fi2.meaning == fi3.meaning) {
+				continue; 
+			}
+			else {
+				pushNode(hashTable[hashingFunction(fi1.keyword, sizeHashTable)].head, fi1);
+				fi1 = fi2;
+				fi2 = fi3;
+			}
 		}
 	}
 	pushNode(hashTable[hashingFunction(fi2.keyword, sizeHashTable)].head, fi2);
@@ -85,19 +94,50 @@ void readFileHashTable(headNode* hashTable, int sizeHashTable) {
 	ms_duration = en - st;
 	cout << "\nRunning time : " << ms_duration.count() << endl;
 }
+void swapHE(hashElement& a, hashElement& b) {
+	hashElement c = a; 
+	a = b; 
+	b = c;
+}
+int partition(hashElement* array, int left, int right) {
+	int j = left; 
+	for (int i = left ; i < right ; i++)
+		if (array[i].keyword < array[right].keyword) 
+			swap(array[i], array[++j]); 
+	swap(array[right], array[++j]); 
+	return j; 
+}
+
+void quickSortHE(hashElement* array, int left, int right) {
+	if (left >= right) return;
+	int mid = partition(array, left, right); 
+	quickSortHE(array, left, mid - 1); 
+	quickSortHE(array, mid + 1, right); 
+}
 void writeFileHashTable(headNode* hashTable, int size) {
 	wfstream fo(RESULT_SET, ios::out);
 	// quickSort(dictionary, 0, size);
+	hashElement *temp = new hashElement[NUM_LINE / 2]; 
+	int d = 0; 
 	duration<double, milli> ms_duration;
 	auto st = steady_clock::now();
 	for (int i = 0; i < size; i++) {
-		traverse(hashTable[i].head, fo);
+		// traverse(hashTable[i].head, fo);
+		Node* head = hashTable[i].head;
+		while (head) {
+			temp[d++] = head->element; 
+			head = head->next; 
+		}
 	}
+	quickSortHE(temp, 0, size); 
+	for (int i = 0; i < size; i++)
+		fo << temp[i].keyword << " : " << temp[i].meaning << endl; 
 	cout << "Save to " << RESULT_SET << " sucessfully !\n";
 	auto en = steady_clock::now();
 	ms_duration = en - st;
 	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fo.close();
+	delete[] temp; 
 	system(RESULT_SET);
 
 }
