@@ -155,6 +155,7 @@ void insertingWordArray(word *dictionary, int size) {
 		j--;
 	}
 	dictionary[j + 1] = fil;
+	cout << "Insert sucessfully!\n"; 
 	auto en = steady_clock::now();
 	ms_duration = en - st;
 	wcout << "\nRunning time : " << ms_duration.count() << endl;

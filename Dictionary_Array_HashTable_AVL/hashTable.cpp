@@ -13,7 +13,7 @@ Node* newNode(hashElement element) {
 	p->next = nullptr;
 	return p;
 }
-void pushNode(Node* &head, hashElement element){
+bool pushNode(Node* &head, hashElement element){
 	Node* p = newNode(element);
 	//wcout << element.keyword << L" " << element.meaning << endl;
 	if (!head)
@@ -22,15 +22,17 @@ void pushNode(Node* &head, hashElement element){
 		Node *t = head;
 		while (t->next) {
 			if (t->element.keyword == element.keyword && t->element.meaning == element.meaning) {
-				//cout << "OUT\n";
-				return;
+				// cout << "Already exist\n";
+				return false;
 
 			}
 			t = t->next; 
 		}
 		t->next = p; 
 	}
+	return true; 
 }
+
 
 void freedomForLL(Node *p) {
 	if (p)
@@ -66,8 +68,8 @@ void readFileHashTable(headNode* hashTable, int sizeHashTable) {
 		if (t3.length() > 2) {
 			fi3 = wfilter(t3);
 			if (fi2.keyword == L"Usage") {
-				wcout << fi1.keyword << L" " << fi2.keyword << L" " << fi3.keyword << endl;
-				wcout << (fi3.keyword >= fi2.keyword) << " " << (fi1.keyword <= fi2.keyword) << endl;
+				// wcout << fi1.keyword << L" " << fi2.keyword << L" " << fi3.keyword << endl;
+				// wcout << (fi3.keyword >= fi2.keyword) << " " << (fi1.keyword <= fi2.keyword) << endl;
 			}
 			if (fi2.keyword == L"Usage" && !((fi3.keyword >= fi2.keyword) && (fi1.keyword <= fi2.keyword))) {
 				fi1.meaning += L"\n Usage : " + fi2.meaning;
@@ -191,7 +193,10 @@ void insertingWordHashTable(headNode* hashTable, int size) {
 	temp = wformalize(temp);
 	hashElement fil = wfilter(temp);
 	Node* p = newNode(fil); 
-	pushNode(hashTable[hashingFunction(fil.keyword, size)].head, fil); 
+	if (pushNode(hashTable[hashingFunction(fil.keyword, size)].head, fil)) {
+		cout << "Insert sucessfully!\n";
+	}
+	else cout << "Terminated, word is already exist!\n"; 
 	auto en = steady_clock::now();
 	ms_duration = en - st;
 	cout << "\nRunning time : " << ms_duration.count() << endl;

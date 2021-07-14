@@ -7,7 +7,7 @@ int hashingFunction(wstring keyword, int modu);
 
 
 Node* newNode(hashElement element);
-void pushNode(Node*& head, hashElement element);
+bool pushNode(Node*& head, hashElement element);
 bool deleteNode(Node* head, wstring keyword); 
 void freedomForLL(Node* p); 
 
