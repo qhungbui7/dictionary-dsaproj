@@ -69,6 +69,7 @@ int main()
 	}
 	else if (core == 2) {
 		BinarySearchTree bst; 
+		initialize(bst); 
 		while (true) {
 			cout << "Choose function (0 - 6) :\n";
 			for (int inc = 0; inc < 6; inc++) {
@@ -78,12 +79,18 @@ int main()
 			cin >> cmd;
 			if (cmd == 6)
 				break;
-			else if (cmd == 0);
-			else if (cmd == 1);
-			else if (cmd == 2);
-			else if (cmd == 3);
-			else if (cmd == 4);
-			else if (cmd == 5);
+			else if (cmd == 0)
+				readFileBST(bst); 
+			else if (cmd == 1)
+				writeFileBST(bst);
+			else if (cmd == 2)
+				findingWordBST(bst);
+			else if (cmd == 3)
+				insertingWordBST(bst);
+			else if (cmd == 4)
+				editingWordBST(bst);
+			else if (cmd == 5)
+				deletingWordBST(bst);
 		}
 	}
 	return 0;

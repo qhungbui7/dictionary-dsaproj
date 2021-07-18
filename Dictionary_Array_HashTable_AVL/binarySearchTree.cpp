@@ -23,7 +23,7 @@ nodeBST *pushNodeBST(nodeBST *p, wstring keyword, wstring meaning) {
 	return p; 
 }
 
-void readFileBST(BinarySearchTree bst) {
+void readFileBST(BinarySearchTree &bst) {
 	wfstream fi(SOURCE_DATASET, ios::in);
 	vector< hashElement > temp; 
 	duration<double, milli> ms_duration;
@@ -44,6 +44,8 @@ void readFileBST(BinarySearchTree bst) {
 	while (getline(fi, t3)) {
 		if (t3.length() > 2) {
 			fi3 = wfilter(t3);
+			//if (fi2.keyword == L"Usage" && fi2.meaning[0] == L'n')
+				//wcout << fi2.keyword << " " << fi2.meaning << endl; 
 			if (fi2.keyword == L"Usage" && !((fi3.keyword >= fi2.keyword) && (fi1.keyword <= fi2.keyword))) {
 				fi1.meaning += L"\n Usage : " + fi2.meaning;
 				fi2 = fi3;
@@ -57,6 +59,10 @@ void readFileBST(BinarySearchTree bst) {
 				continue;
 			}
 			else {
+				//if (fi1.keyword == L"Usage")
+				//	wcout << fi1.meaning << endl;
+				//if (fi1.keyword == L"Usage" && fi1.meaning[0] == L'n')
+				//wcout << fi1.keyword << " " << fi1.meaning << endl; 
 				temp.push_back(fi1); 
 				fi1 = fi2;
 				fi2 = fi3;
@@ -66,10 +72,9 @@ void readFileBST(BinarySearchTree bst) {
 	temp.push_back(fi2);
 	temp.push_back(fi3);
 	for (int i = temp.size() - 1; i >= 0; i--) {
-		int pos = rand() % (i + 1); 
-		hashElement hE = temp[pos]; 
-		bst.root = pushNodeBST(bst.root, hE.keyword, hE.meaning); 
-		swapHE(hE, temp[i]); 
+		int pos = (rand() % (i + 1)); 
+		bst.root = pushNodeBST(bst.root, temp[pos].keyword, temp[pos].meaning); 
+		swapHE(temp[pos], temp[i]); 
 	}
 
 
@@ -90,8 +95,6 @@ void traverseBST(nodeBST *p, wfstream &fo) {
 void writeFileBST(BinarySearchTree bst) {
 	wfstream fo(RESULT_SET, ios::out);
 	// quickSort(dictionary, 0, size);
-	hashElement* temp = new hashElement[NUM_LINE / 2];
-	int d = 0;
 	duration<double, milli> ms_duration;
 	auto st = steady_clock::now();
 
@@ -102,7 +105,6 @@ void writeFileBST(BinarySearchTree bst) {
 	ms_duration = en - st;
 	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fo.close();
-	delete[] temp;
 	system(RESULT_SET);
 
 }
@@ -164,6 +166,8 @@ void insertingWordBST(BinarySearchTree bst) {
 	if (searchWordBST(bst.root, fil.keyword))
 		cout << "Terminated, word is already exist!\n";
 	else {
+		//wcout << fil.keyword << endl; 
+		//wcout << fil.meaning << endl; 
 		bst.root = pushNodeBST(bst.root, fil.keyword, fil.meaning);
 		cout << "Insert sucessfully!\n"; 
 	}
@@ -231,6 +235,7 @@ nodeBST* deleteNodeBST(nodeBST* p, wstring keyword) {
 			}
 		}
 	}
+	return p;
 }
 void deletingWordBST(BinarySearchTree bst) {
 	wstring temp;
