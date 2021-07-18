@@ -4,6 +4,9 @@
 #include<fstream>
 #include<string>
 #include<chrono>
+#include<vector>
+#include <cstdlib>
+#include <ctime>
 #define NUM_LINE 72320
 #define SOURCE_DATASET "Oxford-English-Dictionary.txt"
 #define RESULT_SET "EnglishDictionaryfromOxford.txt"
@@ -33,6 +36,19 @@ struct word {
 struct headNode {
 	Node* head;
 };
+
+struct nodeBST {
+	wstring keyword; 
+	wstring meaning; 
+	nodeBST* left;
+	nodeBST* right;
+};
+struct BinarySearchTree {
+	nodeBST* root;
+};
+
+
+void swapHE(hashElement& a, hashElement& b); 
 
 string formalize(string w); 
 string encrypt(string root);

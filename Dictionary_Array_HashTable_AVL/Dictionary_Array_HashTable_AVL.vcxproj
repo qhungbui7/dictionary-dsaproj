@@ -140,12 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="array.cpp" />
+    <ClCompile Include="binarySearchTree.cpp" />
     <ClCompile Include="hashTable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />
+    <ClInclude Include="binarySearchTree.h" />
     <ClInclude Include="hashTable.h" />
     <ClInclude Include="utilities.h" />
   </ItemGroup>

@@ -67,10 +67,6 @@ void readFileHashTable(headNode* hashTable, int sizeHashTable) {
 	while (getline(fi, t3)) {
 		if (t3.length() > 2) {
 			fi3 = wfilter(t3);
-			if (fi2.keyword == L"Usage") {
-				// wcout << fi1.keyword << L" " << fi2.keyword << L" " << fi3.keyword << endl;
-				// wcout << (fi3.keyword >= fi2.keyword) << " " << (fi1.keyword <= fi2.keyword) << endl;
-			}
 			if (fi2.keyword == L"Usage" && !((fi3.keyword >= fi2.keyword) && (fi1.keyword <= fi2.keyword))) {
 				fi1.meaning += L"\n Usage : " + fi2.meaning;
 				fi2 = fi3; 
@@ -96,11 +92,7 @@ void readFileHashTable(headNode* hashTable, int sizeHashTable) {
 	ms_duration = en - st;
 	cout << "\nRunning time : " << ms_duration.count() << endl;
 }
-void swapHE(hashElement& a, hashElement& b) {
-	hashElement c = a; 
-	a = b; 
-	b = c;
-}
+
 int partition(hashElement* array, int left, int right) {
 	int j = left; 
 	for (int i = left ; i < right ; i++)

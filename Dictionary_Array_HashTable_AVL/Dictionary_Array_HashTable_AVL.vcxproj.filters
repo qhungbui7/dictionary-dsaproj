@@ -27,6 +27,9 @@
     <ClCompile Include="hashTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="binarySearchTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utilities.h">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="hashTable.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="binarySearchTree.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

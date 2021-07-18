@@ -1,4 +1,9 @@
 #include"utilities.h"
+void swapHE(hashElement& a, hashElement& b) {
+	hashElement c = a;
+	a = b;
+	b = c;
+}
 string encrypt(string root) {
 	string enc = "";
 	if (int(root[0]) == -61 || int(root[0]) == -59) {
