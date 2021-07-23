@@ -231,6 +231,7 @@ nodeBST* deleteNodeBST(nodeBST* p, wstring keyword) {
 				while (t->left)
 					t = t->left; 
 				p->keyword = t->keyword; 
+				p->meaning = t->meaning; 
 				p->right = deleteNodeBST(p->right, p->keyword); 
 			}
 		}
@@ -258,4 +259,12 @@ void deletingWordBST(BinarySearchTree bst) {
 	ms_duration = en - st;
 	cout << "\nRunning time : " << ms_duration.count() << endl;
 	fi.close();
+}
+void destroyTree(nodeBST *&p) {
+	if (p) {
+		if (p->left) destroyTree(p->left);
+		if (p->right) destroyTree(p->right);
+		delete p;
+		p = nullptr;
+	}
 }

@@ -20,8 +20,10 @@ int main()
 			}
 			cout << "6. Exit\n>>";
 			cin >> cmd;
-			if (cmd == 6)
-				break; 
+			if (cmd == 6) {
+				delete[] dictionary;
+				break;
+			}
 			else if (cmd == 0) 
 				readFileArray(dictionary, size, dicT); 
 			else if (cmd == 1) 
@@ -35,7 +37,7 @@ int main()
 			else if (cmd == 5) 
 				deletingWordArray(dictionary, size); 
 		}
-		delete[] dictionary; 
+
 	}
 	else if (core == 1) {
 		int sizeHashTable = locatePrime(NUM_LINE / 7); 
@@ -47,8 +49,13 @@ int main()
 			}
 			cout << "6. Exit\n>>";
 			cin >> cmd;
-			if (cmd == 6)
+			if (cmd == 6) {
+				for (int i = 0; i < sizeHashTable; i++) {
+					freedomForLL(hashTable[i].head);
+				}
+				delete[] hashTable;
 				break;
+			}
 			else if (cmd == 0)
 				readFileHashTable(hashTable, sizeHashTable);
 			else if (cmd == 1)
@@ -62,10 +69,7 @@ int main()
 			else if (cmd == 5)
 				deletingWordHashTable(hashTable, sizeHashTable);
 		}
-		for (int i = 0; i < sizeHashTable; i++) {
-			freedomForLL(hashTable[i].head);
-		}
-		delete[] hashTable; 
+
 	}
 	else if (core == 2) {
 		BinarySearchTree bst; 
@@ -77,8 +81,10 @@ int main()
 			}
 			cout << "6. Exit\n>>";
 			cin >> cmd;
-			if (cmd == 6)
+			if (cmd == 6) {
+				destroyTree(bst.root);
 				break;
+			}
 			else if (cmd == 0)
 				readFileBST(bst); 
 			else if (cmd == 1)
@@ -92,6 +98,7 @@ int main()
 			else if (cmd == 5)
 				deletingWordBST(bst);
 		}
+
 	}
 	return 0;
 }

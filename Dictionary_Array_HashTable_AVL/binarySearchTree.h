@@ -14,7 +14,7 @@ void insertingWordBST(BinarySearchTree bst);
 void editingWordBST(BinarySearchTree bst);
 nodeBST* deleteNodeBST(nodeBST* p, wstring keyword);
 void deletingWordBST(BinarySearchTree bst);
-
+void destroyTree(nodeBST*& p); 
 
 
 #endif // !_BINARYSEARCHTREE_H_
