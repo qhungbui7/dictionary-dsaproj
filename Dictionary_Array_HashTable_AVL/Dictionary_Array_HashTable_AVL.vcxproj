@@ -143,10 +143,12 @@
     <ClCompile Include="binarySearchTree.cpp" />
     <ClCompile Include="hashTable.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="avlTree.cpp" />
     <ClCompile Include="utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />
+    <ClInclude Include="avlTree.h" />
     <ClInclude Include="binarySearchTree.h" />
     <ClInclude Include="hashTable.h" />
     <ClInclude Include="utilities.h" />

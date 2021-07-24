@@ -1,4 +1,7 @@
 #include"utilities.h"
+int max(int& a, int& b) {
+	return (a > b) ? a : b;
+}
 void swapHE(hashElement& a, hashElement& b) {
 	hashElement c = a;
 	a = b;

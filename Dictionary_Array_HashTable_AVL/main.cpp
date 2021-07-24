@@ -2,12 +2,13 @@
 #include"array.h"
 #include"hashTable.h"
 #include"binarySearchTree.h"
+#include"avlTree.h"
 int main() 
 {
-	string inc_1[3] = { "Array", "Hash Table", "Binary Search Tree" };
+	string inc_1[4] = { "Array", "Hash Table", "Binary Search Tree", "AVL Tree" };
 	string inc_2[6] = { "Load", "Save", "Look up","Insert","Edit","Remove" }; 
 	int core, cmd; 
-	cout << "Choose dictionary's core (0-1) :\n0. Array\n1. Hash Table\n2. Binary Search Tree\n>>"; 
+	cout << "Choose dictionary's core (0-3) :\n0. Array\n1. Hash Table\n2. Binary Search Tree\n3. AVL Tree\n>>"; 
 	wcin >> core; 
 	if (core == 0) {
 		word* dictionary = new word[NUM_LINE];
@@ -97,6 +98,31 @@ int main()
 				editingWordBST(bst);
 			else if (cmd == 5)
 				deletingWordBST(bst);
+		}
+	}
+	else if (core == 3) {
+		AVLTree avl;
+		avl.root = nullptr; 
+		while (true) {
+			cout << "Choose function (0 - 6) :\n";
+			for (int inc = 0; inc < 6; inc++) {
+				cout << inc << ". " << inc_2[inc] << endl;
+			}
+			cout << "6. Exit\n>>";
+			cin >> cmd;
+			if (cmd == 6) {
+				destroyAVLTree(avl.root);
+				break;
+			}
+			else if (cmd == 0)
+				readFileAVL(avl);
+			else if (cmd == 1)
+				writeFileAVL(avl);
+			else if (cmd == 2)
+				findingWordAVL(avl);
+			else if (cmd == 3);
+			else if (cmd == 4);
+			else if (cmd == 5); 
 		}
 
 	}

@@ -47,6 +47,17 @@ struct BinarySearchTree {
 	nodeBST* root;
 };
 
+struct nodeAVL {
+	wstring keyword;
+	wstring meaning; 
+	int weight;
+	nodeAVL* lChild;
+	nodeAVL* rChild;
+};
+struct AVLTree {
+	nodeAVL* root;
+};
+int max(int& a, int& b); 
 
 void swapHE(hashElement& a, hashElement& b); 
 
