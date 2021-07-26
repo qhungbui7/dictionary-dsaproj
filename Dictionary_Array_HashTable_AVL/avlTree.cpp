@@ -174,6 +174,12 @@ nodeAVL* searchWordAVL(nodeAVL* p, wstring key) {
 			return searchWordAVL(p->lChild, key);
 	}
 }
+bool isEmptyAVL(AVLTree avl) {
+	if (!avl.root)
+		return true;
+	else
+		return false; 
+}
 void findingWordAVL(AVLTree avl) {
 	wstring key;
 	wcin.ignore();
@@ -201,4 +207,124 @@ void findingWordAVL(AVLTree avl) {
 	fi.close();
 	fo.close();
 	system(OUT_DESTINATION);
+}
+
+
+void insertingWordAVL(AVLTree avl) {
+	wstring temp;
+	wcin.ignore();
+	wfstream fi(INP_DESTINATION, ios::in);
+	cout << "Enter the word that you want to insert in the " << INP_DESTINATION << "\nFormat: Keyword 2 spaces Meaning\n";
+	system(INP_DESTINATION);
+	getline(fi, temp);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
+	temp = wformalize(temp);
+	hashElement fil = wfilter(temp);
+	nodeAVL* p = newAVLNode(fil.keyword, fil.meaning);
+
+	if (searchWordAVL(avl.root, fil.keyword))
+		cout << "Terminated, word is already exist!\n";
+	else {
+		//wcout << fil.keyword << endl; 
+		//wcout << fil.meaning << endl; 
+		avl.root = pushAVLNode(avl.root, fil.keyword, fil.meaning);
+		cout << "Insert sucessfully!\n";
+	}
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
+	fi.close();
+}
+
+void editingWordAVL(AVLTree avl) {
+	wstring temp;
+	wcin.ignore();
+	wfstream fi(INP_DESTINATION, ios::in);
+	cout << "Enter the keyword and the new meaning that you want to edit in the " << INP_DESTINATION << "\n";
+	system(INP_DESTINATION);
+	getline(fi, temp);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
+	hashElement fil = wfilter(temp);
+	nodeAVL* p = searchWordAVL(avl.root, wformalize(fil.keyword));
+	if (!p) {
+		cout << "Not Found\n";
+	}
+	else {
+		//p->keyword = fil.keyword;
+		p->meaning = fil.meaning;
+		cout << "Edited!\n";
+	}
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
+	fi.close();
+}
+
+nodeAVL* deleteNodeAVL(nodeAVL* p, wstring keyword) {
+	if (!p)
+		return p;
+	else {
+		if (p->keyword > keyword) {
+			p->lChild = deleteNodeAVL(p->lChild, keyword);  
+			p->weight = 1 + max(getWeight(p->lChild), getWeight(p->rChild));
+			return p; 
+		} else if (p->keyword < keyword) {
+			p->rChild = deleteNodeAVL(p->rChild, keyword);
+			p->weight = 1 + max(getWeight(p->lChild), getWeight(p->rChild));
+			return p; 
+		} 
+		else {
+			if (!p->lChild && !p->rChild) {
+				delete p;
+				return nullptr;
+			}
+			else if (!p->lChild && p->rChild) {
+				nodeAVL* t = p->rChild;
+				delete p;
+				p = nullptr;
+				return t;
+			}
+			else if (p->lChild && !p->rChild) {
+				nodeAVL* t = p->lChild;
+				delete p;
+				p = nullptr;
+				return t;
+			}
+			else {
+				nodeAVL* t = p->rChild;
+				while (t->lChild)
+					t = t->lChild;
+				p->keyword = t->keyword;
+				p->meaning = t->meaning;
+				p->rChild = deleteNodeAVL(p->rChild, p->keyword);
+				p->weight = 1 + max(getWeight(p->lChild), getWeight(p->rChild));
+				return checkAndRotate(p);
+			}
+		}
+	}
+
+}
+void deletingWordAVL(AVLTree avl) {
+	wstring temp;
+	wcin.ignore();
+	wfstream fi(INP_DESTINATION, ios::in);
+	cout << "Enter the word that you want to delete in the " << INP_DESTINATION << "\n";
+	system(INP_DESTINATION);
+	getline(fi, temp);
+	duration<double, milli> ms_duration;
+	auto st = steady_clock::now();
+	temp = wformalize(temp);
+
+	if (!searchWordAVL(avl.root, temp))
+		cout << "The keyword is not exist! \n";
+	else {
+		avl.root = deleteNodeAVL(avl.root, temp);
+		cout << "Deleted !\n";
+	}
+	auto en = steady_clock::now();
+	ms_duration = en - st;
+	cout << "\nRunning time : " << ms_duration.count() << endl;
+	fi.close();
 }

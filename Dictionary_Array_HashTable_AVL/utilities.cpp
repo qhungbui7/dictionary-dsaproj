@@ -76,3 +76,4 @@ hashElement wfilter(wstring raw) {
 
 	return t;
 }
+

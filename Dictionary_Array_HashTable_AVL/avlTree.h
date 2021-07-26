@@ -14,6 +14,11 @@ void readFileAVL(AVLTree& avl);
 void writeFileAVL(AVLTree avl);
 nodeAVL* searchWordAVL(nodeAVL* p, wstring key);
 void findingWordAVL(AVLTree avl); 
+bool isEmptyAVL(AVLTree avl); 
+void insertingWordAVL(AVLTree avl); 
+void editingWordAVL(AVLTree avl); 
+nodeAVL* deleteNodeAVL(nodeAVL* p, wstring keyword); 
+void deletingWordAVL(AVLTree avl); 
 
 
 #endif // !_AVLTREE_H_

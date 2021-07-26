@@ -104,12 +104,18 @@ int main()
 		AVLTree avl;
 		avl.root = nullptr; 
 		while (true) {
+			if (isEmptyAVL(avl))
+				cout << "Tree is empty now !\n";
+			else
+				cout << "Tree is not empty now !\n";
 			cout << "Choose function (0 - 6) :\n";
 			for (int inc = 0; inc < 6; inc++) {
 				cout << inc << ". " << inc_2[inc] << endl;
 			}
 			cout << "6. Exit\n>>";
 			cin >> cmd;
+
+			
 			if (cmd == 6) {
 				destroyAVLTree(avl.root);
 				break;
@@ -120,9 +126,12 @@ int main()
 				writeFileAVL(avl);
 			else if (cmd == 2)
 				findingWordAVL(avl);
-			else if (cmd == 3);
-			else if (cmd == 4);
-			else if (cmd == 5); 
+			else if (cmd == 3)
+				insertingWordAVL(avl);
+			else if (cmd == 4)
+				editingWordAVL(avl);
+			else if (cmd == 5)
+				deletingWordAVL(avl); 
 		}
 
 	}
