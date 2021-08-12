@@ -144,6 +144,7 @@
     <ClCompile Include="hashTable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="avlTree.cpp" />
+    <ClCompile Include="rbtree.cpp" />
     <ClCompile Include="utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="avlTree.h" />
     <ClInclude Include="binarySearchTree.h" />
     <ClInclude Include="hashTable.h" />
+    <ClInclude Include="rbtree.h" />
     <ClInclude Include="utilities.h" />
   </ItemGroup>
   <ItemGroup>

@@ -2,13 +2,14 @@
 #include"array.h"
 #include"hashTable.h"
 #include"binarySearchTree.h"
+#include"rbtree.h"
 #include"avlTree.h"
 int main() 
 {
-	string inc_1[4] = { "Array", "Hash Table", "Binary Search Tree", "AVL Tree" };
+	string inc_1[5] = { "Array", "Hash Table", "Binary Search Tree", "AVL Tree", "Red Black Tree"};
 	string inc_2[6] = { "Load", "Save", "Look up","Insert","Edit","Remove" }; 
 	int core, cmd; 
-	cout << "Choose dictionary's core (0-3) :\n0. Array\n1. Hash Table\n2. Binary Search Tree\n3. AVL Tree\n>>"; 
+	cout << "Choose dictionary's core (0-3) :\n0. Array\n1. Hash Table\n2. Binary Search Tree\n3. AVL Tree\n4.Red Black Tree\n>>"; 
 	wcin >> core; 
 	if (core == 0) {
 		word* dictionary = new word[NUM_LINE];
@@ -133,7 +134,40 @@ int main()
 			else if (cmd == 5)
 				deletingWordAVL(avl); 
 		}
+	}
+	else if (core == 4) {
+		RedBlackTree rb;
+		initialize(rb); 
+		while (true) {
+			if (isTreeEmpty(rb))
+				cout << "Tree is empty now !\n";
+			else
+				cout << "Tree is not empty now !\n";
+			cout << "Choose function (0 - 6) :\n";
+			for (int inc = 0; inc < 6; inc++) {
+				cout << inc << ". " << inc_2[inc] << endl;
+			}
+			cout << "6. Exit\n>>";
+			cin >> cmd;
 
+
+			if (cmd == 6) {
+				destroyRBTree(rb.root);
+				break;
+			}
+			else if (cmd == 0)
+				readFileRB(rb);
+			else if (cmd == 1)
+				writeFileRB(rb);
+			else if (cmd == 2)
+				findingWordRB(rb);
+			else if (cmd == 3)
+				insertingWordRB(rb);
+			else if (cmd == 4)
+				editingWordRB(rb);
+			else if (cmd == 5)
+				deletingWordRB(rb);
+		}
 	}
 	return 0;
 }

@@ -57,6 +57,20 @@ struct nodeAVL {
 struct AVLTree {
 	nodeAVL* root;
 };
+
+struct nodeRB {
+	wstring keyword;
+	wstring meaning;
+	bool color; // red : 1, black : 0 
+	nodeRB* parent;
+	nodeRB* left;
+	nodeRB* right;
+};
+struct RedBlackTree {
+	nodeRB* root;
+};
+
+
 int max(int& a, int& b); 
 
 void swapHE(hashElement& a, hashElement& b); 
